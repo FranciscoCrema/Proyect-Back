@@ -21,7 +21,6 @@ class ProductManager {
       description,
       price,
       thumbnail,
-      code,
       stock,
     };
     this.products.push(product);
@@ -45,7 +44,7 @@ francisco.addProduct(
   "sin imagen",
   25
 );
-francisco.getProductById();
+francisco.getProductById(1);
 
 const lucas = new ProductManager();
 lucas.getProducts();
@@ -56,4 +55,4 @@ lucas.addProduct(
   "sin imagen",
   35
 );
-lucas.getProductById();
+lucas.getProductById(2);
