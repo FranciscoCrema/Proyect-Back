@@ -42,7 +42,8 @@ francisco.addProduct(
   "este es un producto prueba",
   200,
   "sin imagen",
-  25
+  25,
+  30
 );
 francisco.getProductById(1);
 
@@ -53,6 +54,7 @@ lucas.addProduct(
   "este es un producto prueba",
   500,
   "sin imagen",
-  35
+  35,
+  10
 );
 lucas.getProductById(2);
