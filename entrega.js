@@ -6,7 +6,7 @@ class ProductManager {
     console.log(this.products);
     return this.products;
   }
-  addProduct(title, description, price, thumbnail, code, stock) {
+  addProduct(title, description, price, thumbnail, stock) {
     let id = 0;
     this.products.forEach((product) => {
       if (product.code > id) {
@@ -37,6 +37,7 @@ class ProductManager {
 
 const francisco = new ProductManager();
 francisco.getProducts();
+
 francisco.addProduct(
   "Producto prueba",
   "este es un producto prueba",
@@ -47,9 +48,7 @@ francisco.addProduct(
 );
 francisco.getProductById(1);
 
-const lucas = new ProductManager();
-lucas.getProducts();
-lucas.addProduct(
+francisco.addProduct(
   "Producto prueba",
   "este es un producto prueba",
   500,
@@ -57,4 +56,5 @@ lucas.addProduct(
   35,
   10
 );
-lucas.getProductById(2);
+francisco.getProductById(2);
+francisco.getProducts();
