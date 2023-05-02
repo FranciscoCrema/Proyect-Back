@@ -12,10 +12,12 @@ class ProductManager {
 
   addProduct(title, description, price, thumbnail, stock) {
     let id = 0;
-    if (this.products.length > 0) {
-      const lastProduct = this.products[this.products.length - 1];
-      id = lastProduct.code + 1;
-    }
+    this.products.forEach((product) => {
+      if (product.code > id) {
+        id = product.code;
+      }
+    });
+    id++;
 
     const product = {
       code: id,
