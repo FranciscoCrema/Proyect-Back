@@ -11,7 +11,7 @@ class ProductManager {
   }
 
   addProduct(title, description, price, thumbnail, stock) {
-    let id = 1;
+    let id = 0;
     if (this.products.length > 0) {
       const lastProduct = this.products[this.products.length - 1];
       id = lastProduct.code + 1;
@@ -79,24 +79,36 @@ const newProduct = productManager.addProduct(
   "Sin imagen",
   25
 );
-console.log("Producto agregado:", newProduct);
+const newProduct2 = productManager.addProduct(
+  "Producto prueba2",
+  "Este es un producto prueba",
+  250,
+  "Sin imagen",
+  30
+);
+console.log("Producto agregado:", newProduct, newProduct2);
 
 console.log("Obteniendo lista de productos...");
-productManager.getProducts(); // [{code: 1, title: "Producto prueba", description: "Este es un producto prueba", price: 200, thumbnail: "Sin imagen", stock: 25}]
+productManager.getProducts();
 
 console.log("Obteniendo producto por id...");
 const foundProduct = productManager.getProductById(newProduct.code);
-console.log("Producto encontrado:", foundProduct);
+const foundProduct2 = productManager.getProductById(newProduct2.code);
+console.log("Producto encontrado:", foundProduct, foundProduct2);
 
 console.log("Actualizando producto...");
 const updatedProduct = productManager.updateProduct(newProduct.code, {
   title: "Producto actualizado",
   price: 300,
 });
-console.log("Producto actualizado:", updatedProduct);
+const updatedProduct2 = productManager.updateProduct(newProduct2.code, {
+  title: "Producto actualizado",
+  price: 350,
+});
+console.log("Producto actualizado:", updatedProduct, updatedProduct2);
 
 console.log("Eliminando producto...");
 productManager.deleteProduct(updatedProduct.code);
 
 console.log("Obteniendo lista de productos...");
-productManager.getProducts(); // []
+productManager.getProducts();
