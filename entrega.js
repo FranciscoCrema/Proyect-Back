@@ -28,7 +28,7 @@ class ProductManager {
       stock,
     };
     this.products.push(product);
-    console.log("Producto agregado:", product);
+    fs.writeFileSync("products.json", JSON.stringify(this.products));
     return product;
   }
 
@@ -47,47 +47,39 @@ class ProductManager {
 }
 
 const productManager = new ProductManager();
-console.log("Lista de productos vacía:");
+
 productManager.getProducts();
 
-console.log("Agregando producto...");
-const newProduct = productManager.addProduct(
-  "Producto prueba",
-  "Este es un producto prueba",
-  200,
-  "Sin imagen",
-  25
-);
-const newProduct2 = productManager.addProduct(
-  "Producto prueba2",
-  "Este es un producto prueba",
-  250,
-  "Sin imagen",
-  30
-);
-console.log("Producto agregado:", newProduct, newProduct2);
+productManager.addProduct =
+  ("Titulo1", "Descripcion1", 200, "img1", "abc123", 25);
+productManager.addProduct =
+  ("Titulo2", "Descripcion2", 2000, "img2", "abc124", 55);
+productManager.addProduct =
+  ("Titulo3", "Descripcion3", 500, "img3", "abc125", 15);
 
-console.log("Obteniendo lista de productos...");
-productManager.getProducts();
+// console.log("Producto agregado:", newProduct, newProduct2);
 
-console.log("Obteniendo producto por id...");
-const foundProduct = productManager.getProductById(newProduct.code);
-const foundProduct2 = productManager.getProductById(newProduct2.code);
-console.log("Producto encontrado:", foundProduct, foundProduct2);
+// console.log("Obteniendo lista de productos...");
+// productManager.getProducts();
 
-console.log("Actualizando producto...");
-const updatedProduct = productManager.updateProduct(newProduct.code, {
-  title: "Producto actualizado",
-  price: 300,
-});
-const updatedProduct2 = productManager.updateProduct(newProduct2.code, {
-  title: "Producto actualizado",
-  price: 350,
-});
-console.log("Producto actualizado:", updatedProduct, updatedProduct2);
+// console.log("Obteniendo producto por id...");
+// const foundProduct = productManager.getProductById(newProduct.code);
+// const foundProduct2 = productManager.getProductById(newProduct2.code);
+// console.log("Producto encontrado:", foundProduct, foundProduct2);
 
-console.log("Eliminando producto...");
-productManager.deleteProduct(updatedProduct.code);
+// console.log("Actualizando producto...");
+// const updatedProduct = productManager.updateProduct(newProduct.code, {
+//   title: "Producto actualizado",
+//   price: 300,
+// });
+// const updatedProduct2 = productManager.updateProduct(newProduct2.code, {
+//   title: "Producto actualizado",
+//   price: 350,
+// });
+// console.log("Producto actualizado:", updatedProduct, updatedProduct2);
 
-console.log("Obteniendo lista de productos...");
-productManager.getProducts();
+// console.log("Eliminando producto...");
+// productManager.deleteProduct(updatedProduct.code);
+
+// console.log("Obteniendo lista de productos...");
+// productManager.getProducts();
