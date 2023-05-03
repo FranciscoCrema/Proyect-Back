@@ -41,37 +41,14 @@ class ProductManager {
     return product;
   }
 
-  updateProduct(id, updateFields) {
-    const productIndex = this.products.findIndex(
-      (product) => product.code === id
-    );
-    if (productIndex === -1) {
-      throw new Error("Producto no encontrado");
-    }
+  updateProduct() {}
 
-    const product = this.products[productIndex];
-    const updatedProduct = { ...product, ...updateFields, code: id };
-    this.products[productIndex] = updatedProduct;
-    console.log("Producto actualizado:", updatedProduct);
-    return updatedProduct;
-  }
-
-  deleteProduct(id) {
-    const productIndex = this.products.findIndex(
-      (product) => product.code === id
-    );
-    if (productIndex === -1) {
-      throw new Error("Producto no encontrado");
-    }
-    const product = this.products[productIndex];
-    this.products.splice(productIndex, 1);
-    console.log("Producto eliminado:", product);
-  }
+  deleteProduct() {}
 }
 
 const productManager = new ProductManager();
 console.log("Lista de productos vacía:");
-productManager.getProducts(); // []
+productManager.getProducts();
 
 console.log("Agregando producto...");
 const newProduct = productManager.addProduct(
