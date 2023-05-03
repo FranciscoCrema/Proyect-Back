@@ -1,85 +1,29 @@
-const fs = require("fs");
-
 class ProductManager {
   constructor() {
-    this.products = [];
+    this.prodcts = [];
+    this.id = 1;
   }
 
   getProducts() {
-    console.log(this.products);
-    return this.products;
+    return this.prodcts;
   }
 
-  addProduct(title, description, price, thumbnail, stock) {
-    let id = 0;
-    this.products.forEach((product) => {
-      if (product.code > id) {
-        id = product.code;
-      }
-    });
-    id++;
-
-    const product = {
-      code: id,
+  addProducts(title, description, price, img, code, stock) {
+    const prod = {
       title,
       description,
       price,
-      thumbnail,
+      img,
+      code,
       stock,
     };
-    this.products.push(product);
-    fs.writeFileSync("products.json", JSON.stringify(this.products));
-    return product;
   }
 
-  getProductById(id) {
-    const product = this.products.find((product) => product.code === id);
-    if (!product) {
-      throw new Error("Producto no encontrado");
-    }
-    console.log("Producto encontrado:", product);
-    return product;
-  }
-
-  updateProduct() {}
-
-  deleteProduct() {}
+  getProductById() {}
 }
 
-const productManager = new ProductManager();
+const product = new ProductManager();
 
-productManager.getProducts();
-
-productManager.addProduct =
-  ("Titulo1", "Descripcion1", 200, "img1", "abc123", 25);
-productManager.addProduct =
-  ("Titulo2", "Descripcion2", 2000, "img2", "abc124", 55);
-productManager.addProduct =
-  ("Titulo3", "Descripcion3", 500, "img3", "abc125", 15);
-
-// console.log("Producto agregado:", newProduct, newProduct2);
-
-// console.log("Obteniendo lista de productos...");
-// productManager.getProducts();
-
-// console.log("Obteniendo producto por id...");
-// const foundProduct = productManager.getProductById(newProduct.code);
-// const foundProduct2 = productManager.getProductById(newProduct2.code);
-// console.log("Producto encontrado:", foundProduct, foundProduct2);
-
-// console.log("Actualizando producto...");
-// const updatedProduct = productManager.updateProduct(newProduct.code, {
-//   title: "Producto actualizado",
-//   price: 300,
-// });
-// const updatedProduct2 = productManager.updateProduct(newProduct2.code, {
-//   title: "Producto actualizado",
-//   price: 350,
-// });
-// console.log("Producto actualizado:", updatedProduct, updatedProduct2);
-
-// console.log("Eliminando producto...");
-// productManager.deleteProduct(updatedProduct.code);
-
-// console.log("Obteniendo lista de productos...");
-// productManager.getProducts();
+product.addProducts("Titel1", "Description1", 200, "img1", "56207062", 25);
+product.addProducts("Titel2", "Description2", 500, "img2", "56189368", 50);
+product.addProducts("Titel3", "Description3", 380, "img3", "51763580", 75);
