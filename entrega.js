@@ -28,7 +28,6 @@ class ProductManager {
   async getProducts() {
     let result2 = await this.readProducts();
     console.log(result2);
-    console.log(this.prodcts);
     return this.prodcts;
   }
 
@@ -63,7 +62,7 @@ product.addProducts("Titel2", "Description2", 500, "img2", "56189368", 50);
 product.addProducts("Titel3", "Description3", 380, "img3", "51763580", 75);
 product.getProducts();
 
-product.getProductsById(1);
+product.getProductsById(3);
 product.deleteProduct(1);
 product.updateProduct({
   title: "Titel2",
