@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-class ProductManager {
+export default class ProductManager {
   constructor() {
     this.prodcts = [];
     this.id = 1;
@@ -54,22 +54,3 @@ class ProductManager {
     console.log("Producto actualizado", prodModific);
   };
 }
-
-const product = new ProductManager();
-
-product.addProducts("Titel1", "Description1", 200, "img1", "56207062", 25);
-product.addProducts("Titel2", "Description2", 500, "img2", "56189368", 50);
-product.addProducts("Titel3", "Description3", 380, "img3", "51763580", 75);
-product.getProducts();
-
-product.getProductsById(3);
-product.deleteProduct(1);
-product.updateProduct({
-  title: "Titel2",
-  description: "Description2",
-  price: 5000,
-  img: "img2",
-  code: "56189368",
-  stock: 10,
-  id: 2,
-});
