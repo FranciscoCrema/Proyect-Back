@@ -29,5 +29,5 @@ app.get("/products/:id", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Se esta viendo ${port}`);
+  console.log(`Se esta viendo en http://localhost:${port}`);
 });
