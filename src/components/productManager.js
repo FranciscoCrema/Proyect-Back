@@ -33,10 +33,11 @@ export default class ProductManager {
 
   async getProductsById(id) {
     let result3 = await this.readProducts();
-    if (!result3.find((prodcts) => prodcts.id === id)) {
-      console.log("No se encuentra el producto");
+    const product = result3.find((product) => product.id === id);
+    if (product) {
+      return product;
     } else {
-      console.log(result3.find((prodcts) => prodcts.id === id));
+      console.log("No existe el id");
     }
   }
 

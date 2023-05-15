@@ -10,9 +10,9 @@ const readProduct = product.readProducts();
 app.get("/products", (req, res) => {
   const limit = req.query.limit;
   if (!limit) {
-    res.send(readProduct);
+    res.status(300).send(readProduct);
   } else {
-    res.send(readProduct.slice(0, limit));
+    res.status(200).send(readProduct.slice(0, limit));
   }
 });
 
@@ -22,9 +22,9 @@ app.get("/products/:id", (req, res) => {
   let id = req.params.id;
   const productId = product.getProductsById(parseInt(id));
   if (productId) {
-    res.send(productId);
+    res.status(200).send(productId);
   } else {
-    console.log("No existe el id");
+    res.status(404).send(productId);
   }
 });
 
