@@ -38,15 +38,26 @@ export default class ProductManager {
     if (product) {
       return product;
     } else {
-      console.log("No existe el id");
+      return null;
     }
   }
 
   async deleteProduct(id) {
     let result3 = await this.readProducts();
-    let productId = result3.filter((prodcts) => prodcts.id != id);
-    fs.writeFileSync("products.json", JSON.stringify(productId));
-    console.log("Producto eliminado", productId);
+    let deletedProduct = null;
+
+    let updatedProducts = result3.filter((product) => {
+      if (product.id === id) {
+        deletedProduct = product;
+        return false;
+      }
+      return true;
+    });
+
+    fs.writeFileSync("products.json", JSON.stringify(updatedProducts));
+    console.log("Producto eliminado", deletedProduct);
+
+    return deletedProduct;
   }
 
   updateProduct = async ({ id, ...product }) => {

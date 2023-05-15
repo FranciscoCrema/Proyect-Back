@@ -10,9 +10,9 @@ const readProduct = product.readProducts();
 app.get("/products", (req, res) => {
   const limit = req.query.limit;
   if (!limit) {
-    res.status(300).send(readProduct);
+    res.status(300).json(readProduct);
   } else {
-    res.status(200).send(readProduct.slice(0, limit));
+    res.status(200).json(readProduct.slice(0, limit));
   }
 });
 
@@ -22,9 +22,23 @@ app.get("/products/:id", async (req, res) => {
   let id = req.params.id;
   const productId = await product.getProductsById(parseInt(id));
   if (productId) {
-    res.status(200).send(productId);
+    res.status(200).json(productId);
   } else {
-    res.status(404).send(productId);
+    res.status(404).json({ error: "No se encuentra el producto por id" });
+  }
+});
+
+app.delete("/products/:id", async (req, res) => {
+  const id = req.params.id;
+  const deletedProduct = await product.deleteProduct(parseInt(id));
+
+  if (deletedProduct) {
+    res.status(200).json({
+      message: "Producto eliminado correctamente",
+      Product: deletedProduct,
+    });
+  } else {
+    res.status(404).json({ error: "No se encuentra el producto" });
   }
 });
 
