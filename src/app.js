@@ -18,9 +18,9 @@ app.get("/products", (req, res) => {
 
 /* Mostrando producto por id */
 
-app.get("/products/:id", (req, res) => {
+app.get("/products/:id", async (req, res) => {
   let id = req.params.id;
-  const productId = product.getProductsById(parseInt(id));
+  const productId = await product.getProductsById(parseInt(id));
   if (productId) {
     res.status(200).send(productId);
   } else {

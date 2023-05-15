@@ -16,13 +16,14 @@ export default class ProductManager {
       stock,
       id: this.id++,
     };
-    this.prodcts.push(newProduct);
-    fs.writeFileSync("products.json", JSON.stringify(this.prodcts));
+    this.products.push(newProduct);
+    fs.writeFileSync("products.json", JSON.stringify(this.products));
   }
 
   readProducts() {
     let result = fs.readFileSync("products.json", "utf-8");
-    return JSON.parse(result);
+    this.products = JSON.parse(result);
+    return this.products;
   }
 
   async getProducts() {
