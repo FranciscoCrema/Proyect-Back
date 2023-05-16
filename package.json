@@ -5,7 +5,7 @@
   "description": "",
   "main": "entrega.js",
   "scripts": {
-    "start": "nodemon src/app.js"
+    "start": "nodemon ./src/app.js"
   },
   "repository": {
     "type": "git",
