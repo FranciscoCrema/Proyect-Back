@@ -41,6 +41,21 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.post("/:id", async (req, res) => {});
+router.post("/:id", async (req, res) => {
+  const productA = req.body;
+  const newProduct = await product.addProducts(productA);
+
+  return res
+    .status(201)
+    .json({ status: "success", msg: "Product added", data: newProduct });
+});
+
+router.put("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const updateProducts = product.updateProduct(id);
+  return res
+    .status(201)
+    .json({ status: "success", msg: "Update product", data: updateProducts });
+});
 
 export default router;
