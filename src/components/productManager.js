@@ -2,7 +2,7 @@ import fs from "fs";
 
 export default class ProductManager {
   constructor() {
-    this.prodcts = [];
+    this.products = [];
     this.id = 1;
   }
 
@@ -28,8 +28,7 @@ export default class ProductManager {
 
   async getProducts() {
     let result2 = await this.readProducts();
-    console.log(result2);
-    return this.prodcts;
+    return this.products;
   }
 
   async getProductsById(id) {

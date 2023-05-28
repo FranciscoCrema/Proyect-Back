@@ -6,15 +6,15 @@ const cartRouter = express.Router();
 
 const cartM = new CartManager();
 const cartP = new ProductManager();
-const readProduct = cartP.readProducts();
+const readCart = cartM.readCartProducts();
 
 /* Muestro todos los productos o mediante query el producto que uno guste */
 cartRouter.get("/", (req, res) => {
   const limit = req.query.limit;
   if (!limit) {
-    res.status(300).json(readProduct);
+    res.status(300).json(readCart);
   } else {
-    res.status(200).json(readProduct.slice(0, limit));
+    res.status(200).json(readCart.slice(0, limit));
   }
 });
 
@@ -29,21 +29,21 @@ cartRouter.get("/:cid", async (req, res) => {
   }
 });
 
-cartRouter.post("/:cid/products/:pid", (req, res) => {
+cartRouter.post("/:cid/products/:id", async (req, res) => {
   const cartId = req.params.cid;
-  const prodId = req.params.pid;
+  const prodId = req.params.id;
 
-  const carts = cartM.getCarts();
-  const products = cartP.getProducts();
-
-  console.log(products[3]);
-  const cartExist = carts.find((cart) => cart.id === +cartId);
+  const card = await cartM.getCard();
+  const products = await cartP.getProducts();
+  console.log(products);
+  console.log(products[cartId]);
+  const cartExist = card.find((cart) => cart.id === +cartId);
 
   console.log(cartExist);
 
   const productExist = products.find((prod) => prod.id === +prodId);
   if (!productExist || !cartExist) {
-    return res.status(400).json({ error: "Carrito o Producto no existente" });
+    return res.status(404).json({ error: "Carrito o Producto no existente" });
   }
 
   if (cartExist) {
@@ -61,10 +61,10 @@ cartRouter.post("/:cid/products/:pid", (req, res) => {
       id: +cartId,
       products: [{ idProduct: +prodId, quantity: 1 }],
     };
-    carts.push(newCart);
+    card.push(newCart);
   }
 
-  cartM.saveCarts(carts);
+  cartM.saveCarts(card);
   res.status(200).json({
     status: "success",
     msg: `Producto Agregado Correctamente`,

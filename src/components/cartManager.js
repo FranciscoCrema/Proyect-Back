@@ -6,29 +6,32 @@ export default class CartManager {
   }
 
   async addProductsCart() {
-    const cartP = this.getCard;
-    const idMax = 0;
-    cartP.forEach((p) => {
-      if (p.id > idMax) {
-        idMax = p.id;
-      }
-    });
-    idMax++;
-    cartP.push({ id: idMax, products: [] });
-    const cartString = JSON.stringify(cartP);
-    fs.writeFileSync("../../cart.json", cartString);
-    return cartString;
+    try {
+      const cartP = this.getCard();
+      let idMax = 0;
+      cartP.forEach((p) => {
+        if (p.id > idMax) {
+          idMax = p.id;
+        }
+      });
+      idMax++;
+      cartP.push({ id: idMax, products: [] });
+      const cartString = JSON.stringify(cartP);
+      fs.writeFileSync("../../cart.json", cartString);
+      return cartString;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   readCartProducts() {
-    let resultCart = fs.readFileSync("../../cart.json", "utf-8");
+    let resultCart = fs.readFileSync("./cart.json", "utf-8");
     this.carts = JSON.parse(resultCart);
     return this.carts;
   }
 
   getCard() {
     let resultCart3 = this.readCartProducts();
-    console.log(resultCart3);
     return this.carts;
   }
 
