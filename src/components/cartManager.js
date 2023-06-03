@@ -5,7 +5,7 @@ export default class CartManager {
     this.carts = [];
   }
 
-  async addProductsCart() {
+  async addProductsCart(products) {
     try {
       const cartP = this.getCard();
       let idMax = 0;
@@ -15,12 +15,13 @@ export default class CartManager {
         }
       });
       idMax++;
-      cartP.push({ id: idMax, products: [] });
-      const cartString = JSON.stringify(cartP);
-      fs.writeFileSync("../../cart.json", cartString);
-      return cartString;
+      cartP.push({ id: idMax, products });
+      this.saveCarts(cartP);
+
+      const newCart = cartP.find((p) => p.id === idMax);
+      return newCart;
     } catch (error) {
-      console.log(error);
+      return { message: error.message };
     }
   }
 
@@ -47,7 +48,7 @@ export default class CartManager {
   }
 
   saveCarts(data) {
-    let saveCart = JSON.stringify(data);
-    fs.writeFileSync("../../cart.json", saveCart);
+    let saveCart = JSON.stringify(data, null, 2);
+    fs.writeFileSync("./cart.json", saveCart);
   }
 }

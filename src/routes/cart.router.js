@@ -20,7 +20,7 @@ cartRouter.get("/", (req, res) => {
 
 /* Mostrando producto por id */
 cartRouter.get("/:cid", async (req, res) => {
-  let id = req.params.id;
+  let id = req.params.cid;
   const productId = await cartM.getCardById(parseInt(id));
   if (productId) {
     res.status(200).json(productId);
@@ -29,17 +29,14 @@ cartRouter.get("/:cid", async (req, res) => {
   }
 });
 
+// Agregar productos al carrito
 cartRouter.post("/:cid/products/:id", async (req, res) => {
   const cartId = req.params.cid;
   const prodId = req.params.id;
 
   const card = await cartM.getCard();
   const products = await cartP.getProducts();
-  console.log(products);
-  console.log(products[cartId]);
   const cartExist = card.find((cart) => cart.id === +cartId);
-
-  console.log(cartExist);
 
   const productExist = products.find((prod) => prod.id === +prodId);
   if (!productExist || !cartExist) {
@@ -70,6 +67,26 @@ cartRouter.post("/:cid/products/:id", async (req, res) => {
     msg: `Producto Agregado Correctamente`,
     data: cartExist,
   });
+});
+
+// Crear un nuevo carrito
+cartRouter.post("/", async (req, res) => {
+  try {
+    const { products } = req.body;
+    const newCart = await cartM.addProductsCart(products);
+
+    if (newCart.hasOwnProperty(message)) {
+      throw new Error(newCart.message);
+    }
+
+    return res.status(201).json({
+      status: "success",
+      message: "Cart created",
+      data: newCart,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 });
 
 export default cartRouter;
