@@ -6,18 +6,31 @@ export default class ProductManager {
     this.id = 1;
   }
 
-  async addProducts(title, description, price, img, code, stock) {
+  async addProducts(
+    title,
+    description,
+    price,
+    code,
+    img,
+    stock,
+    category,
+    status
+  ) {
+    this.readProducts();
+    this.id = this.products.at(-1).id;
     const newProduct = {
       title,
       description,
       price,
-      img,
       code,
+      img,
       stock,
-      id: this.id++,
+      category,
+      status,
+      id: this.id + 1,
     };
     this.products.push(newProduct);
-    fs.writeFileSync("../../products.json", JSON.stringify(this.products));
+    fs.writeFileSync("./products.json", JSON.stringify(this.products));
   }
 
   readProducts() {
@@ -53,7 +66,7 @@ export default class ProductManager {
       return true;
     });
 
-    fs.writeFileSync("../../products.json", JSON.stringify(updatedProducts));
+    fs.writeFileSync("./products.json", JSON.stringify(updatedProducts));
     console.log("Producto eliminado", deletedProduct);
 
     return deletedProduct;
@@ -62,7 +75,7 @@ export default class ProductManager {
   updateProduct = async ({ id, ...product }) => {
     let idProd = await this.readProducts();
     let prodModific = [{ ...product, id }, ...idProd];
-    fs.writeFileSync("../../products.json", JSON.stringify(prodModific));
+    fs.writeFileSync("./products.json", JSON.stringify(prodModific));
     console.log("Producto actualizado", prodModific);
   };
 }

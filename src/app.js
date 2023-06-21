@@ -6,6 +6,7 @@ import { realTimeProducts } from "./routes/real-time-products.router.js";
 import handlebars from "express-handlebars";
 import { __dirname } from "./utils.js";
 import { Server } from "socket.io";
+import ProductManager from "./components/productManager.js";
 
 const app = express();
 const port = 8080;
@@ -31,15 +32,24 @@ const httpServer = app.listen(port, () => {
 
 const socketServer = new Server(httpServer);
 
-socketServer.on("connection", (socket) => {
-  // setInterval(() => {
-  //   socket.emit("msg_back_front", {
-  //     msg: "hola back",
-  //     user: "usuario",
-  //   });
-  // }, 1000);
+const cartP = new ProductManager();
 
-  socket.on("msg_front_back", (msg) => {
-    console.log(msg);
+socketServer.on("connection", async (socket) => {
+  socket.on("new-product", async (msg) => {
+    const { title, description, price, code, img, stock, category, status } =
+      msg;
+
+    await cartP.addProducts(
+      title,
+      description,
+      price,
+      code,
+      img,
+      stock,
+      category,
+      status
+    );
   });
+  const products = await cartP.getProducts();
+  socket.emit("show-products", products);
 });
