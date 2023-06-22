@@ -59,7 +59,7 @@ export default class ProductManager {
     let deletedProduct = null;
 
     let updatedProducts = result3.filter((product) => {
-      if (product.id === id) {
+      if (product.code === id) {
         deletedProduct = product;
         return false;
       }

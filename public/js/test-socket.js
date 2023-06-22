@@ -1,5 +1,5 @@
 const socket = io();
-
+/* Agregado de un producto */
 const form = document.getElementById("productForm");
 
 form.addEventListener("submit", (event) => {
@@ -42,4 +42,22 @@ socket.on("show-products", (products) => {
   });
   const prodA = document.getElementById("product-update");
   prodA.innerHTML = html;
+});
+
+/* Eliminar un producto */
+const borrarP = document.getElementById("deleteProdForm");
+
+borrarP.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const pCode = document.getElementById("pcode").value;
+
+  const borrarCode = {
+    pCode,
+  };
+
+  socket.emit("delete-product", borrarCode);
+});
+
+socket.on("update-products", (msg) => {
+  const prodA = document.getElementById("delete-prod");
 });

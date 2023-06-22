@@ -52,4 +52,11 @@ socketServer.on("connection", async (socket) => {
   });
   const products = await cartP.getProducts();
   socket.emit("show-products", products);
+  socket.on("delete-product", async (e) => {
+    const { pCode } = e;
+
+    await cartP.deleteProduct(pCode);
+  });
+  const producDelete = await cartP.getProducts();
+  socket.emit("update-products", producDelete);
 });
