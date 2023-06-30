@@ -1,12 +1,13 @@
 import express from "express";
 import prod from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
-import { testPlantillaProducts } from "./routes/test-plantilla-products.router.js";
+import { home } from "./routes/home.router.js";
 import { realTimeProducts } from "./routes/real-time-products.router.js";
 import handlebars from "express-handlebars";
 import { __dirname } from "./utils.js";
 import { Server } from "socket.io";
 import ProductManager from "./components/productManager.js";
+import { chat } from "./routes/chat.routes.js";
 
 const app = express();
 const port = 8080;
@@ -22,7 +23,9 @@ app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 
-app.use("/test-plantilla-products", testPlantillaProducts);
+app.use("/chat", chat);
+
+app.use("/home", home);
 
 app.use("/real-time-products", realTimeProducts);
 
@@ -59,4 +62,10 @@ socketServer.on("connection", async (socket) => {
   });
   const producDelete = await cartP.getProducts();
   socket.emit("update-products", producDelete);
+
+  let msgs = [];
+  socket.on("msg_front_to_back", (msg) => {
+    msgs.push(msg);
+    socketServer.emit("listado_de_msgs", msgs);
+  });
 });
