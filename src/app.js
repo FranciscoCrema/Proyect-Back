@@ -1,10 +1,11 @@
 import express from "express";
 import prod from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
+import { usersRouter } from "./routes/user.router.js";
 import { home } from "./routes/home.router.js";
 import { realTimeProducts } from "./routes/real-time-products.router.js";
 import handlebars from "express-handlebars";
-import { __dirname } from "./utils.js";
+import { __dirname, connectMongo } from "./utils.js";
 import { Server } from "socket.io";
 import ProductManager from "./components/productManager.js";
 import { chat } from "./routes/chat.routes.js";
@@ -12,11 +13,14 @@ import { chat } from "./routes/chat.routes.js";
 const app = express();
 const port = 8080;
 
+connectMongo();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/products", prod);
 app.use("/api/carts", cartRouter);
+app.use("/api/users", usersRouter);
 
 app.use(express.static((__dirname, "public")));
 app.engine("handlebars", handlebars.engine());
