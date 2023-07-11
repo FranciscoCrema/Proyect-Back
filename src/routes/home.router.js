@@ -1,5 +1,5 @@
 import express from "express";
-import ProductManager from "../components/productManager.js";
+import ProductManager from "../DAO/components/productManager.js";
 
 const cartP = new ProductManager();
 const readProduct = cartP.readProducts();
