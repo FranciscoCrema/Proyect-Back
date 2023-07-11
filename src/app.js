@@ -1,13 +1,21 @@
 import express from "express";
+
+/* Archivos de la carpeta route */
 import prod from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 import { usersRouter } from "./routes/user.router.js";
 import { home } from "./routes/home.router.js";
-import { realTimeProducts } from "./routes/real-time-products.router.js";
-import handlebars from "express-handlebars";
-import { __dirname } from "./config.js";
-import { connectMongo } from "./utils/dbConnection.js";
 import { chat } from "./routes/chat.routes.js";
+import { realTimeProducts } from "./routes/real-time-products.router.js";
+
+/* Importacion de handlebars */
+import handlebars from "express-handlebars";
+
+/* Importacion de config */
+import { __dirname } from "./config.js";
+
+/* Archivos de mongoose */
+import { connectMongo } from "./utils/dbConnection.js";
 import { connectSocket } from "./utils/socketServer.js";
 
 const app = express();
