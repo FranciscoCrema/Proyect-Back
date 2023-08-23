@@ -1,7 +1,10 @@
 import fs from "fs";
+import { __dirname } from "../../config.js";
+const productPath = `${__dirname}/data/products.JSON`;
 
 export default class ProductManager {
   constructor() {
+    this.path = productPath;
     this.products = [];
     this.id = 1;
   }
@@ -30,11 +33,11 @@ export default class ProductManager {
       id: this.id + 1,
     };
     this.products.push(newProduct);
-    fs.writeFileSync("./products.json", JSON.stringify(this.products));
+    fs.writeFileSync(this.path, JSON.stringify(this.products));
   }
 
   readProducts() {
-    let result = fs.readFileSync("products.json", "utf-8");
+    let result = fs.readFileSync(this.path, "utf-8");
     this.products = JSON.parse(result);
     return this.products;
   }
@@ -66,7 +69,7 @@ export default class ProductManager {
       return true;
     });
 
-    fs.writeFileSync("./products.json", JSON.stringify(updatedProducts));
+    fs.writeFileSync(this.path, JSON.stringify(updatedProducts));
     console.log("Producto eliminado", deletedProduct);
 
     return deletedProduct;
@@ -75,7 +78,7 @@ export default class ProductManager {
   updateProduct = async ({ id, ...product }) => {
     let idProd = await this.readProducts();
     let prodModific = [{ ...product, id }, ...idProd];
-    fs.writeFileSync("./products.json", JSON.stringify(prodModific));
+    fs.writeFileSync(this.path, JSON.stringify(prodModific));
     console.log("Producto actualizado", prodModific);
   };
 }

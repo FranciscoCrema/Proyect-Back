@@ -1,7 +1,10 @@
 import fs from "fs";
+import { __dirname } from "../../config.js";
+const cartPath = `${__dirname}\/data/cart.JSON`;
 
 export default class CartManager {
   constructor() {
+    this.path = cartPath;
     this.carts = [];
   }
 
@@ -26,7 +29,7 @@ export default class CartManager {
   }
 
   readCartProducts() {
-    let resultCart = fs.readFileSync("./cart.json", "utf-8");
+    let resultCart = fs.readFileSync(this.path, "utf-8");
     this.carts = JSON.parse(resultCart);
     return this.carts;
   }
@@ -49,6 +52,6 @@ export default class CartManager {
 
   saveCarts(data) {
     let saveCart = JSON.stringify(data, null, 2);
-    fs.writeFileSync("./cart.json", saveCart);
+    fs.writeFileSync(this.path, saveCart);
   }
 }
