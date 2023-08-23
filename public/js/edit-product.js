@@ -27,23 +27,6 @@ form.addEventListener("submit", (event) => {
   socket.emit("new-product", formData);
 });
 
-socket.on("show-products", (products) => {
-  let html = products.map((product) => {
-    return `<h4>${product.title} </h4>
-    
-    <p>${product.description}</p>
-    <p>${product.price}</p>
-    <p>${product.code}</p>
-    <p>${product.img}</p>
-    <p>${product.stock}</p>
-    <p>${product.category}</p>
-    <p>${product.status}</p>
-    `;
-  });
-  const prodA = document.getElementById("product-update");
-  prodA.innerHTML = html;
-});
-
 /* Eliminar un producto */
 const borrarP = document.getElementById("deleteProdForm");
 

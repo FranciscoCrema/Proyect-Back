@@ -4,9 +4,9 @@ import express from "express";
 import prod from "./routes/products.router.js";
 import cartRouter from "./routes/cart.router.js";
 import { usersRouter } from "./routes/user.router.js";
-import { home } from "./routes/home.router.js";
+import { productsHome } from "./routes/products-home.router.js";
 import { chat } from "./routes/chat.routes.js";
-import { realTimeProducts } from "./routes/real-time-products.router.js";
+import { editProducts } from "./routes/edit-products.router.js";
 
 /* Importacion de handlebars */
 import handlebars from "express-handlebars";
@@ -31,17 +31,16 @@ connectMongo();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+/* Routes */
 app.use("/api/products", prod);
 app.use("/api/carts", cartRouter);
 app.use("/api/users", usersRouter);
+
+app.use("/chat", chat);
+app.use("/products-home", productsHome);
+app.use("/edit-products", editProducts);
 
 app.use(express.static((__dirname, "public")));
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
-
-app.use("/chat", chat);
-
-app.use("/home", home);
-
-app.use("/real-time-products", realTimeProducts);
