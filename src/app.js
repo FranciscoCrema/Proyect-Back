@@ -17,7 +17,6 @@ import { __dirname } from "./config.js";
 /* Archivos de mongoose */
 import { connectMongo } from "./utils/dbConnection.js";
 import { connectSocket } from "./utils/socketServer.js";
-import { productsHtmlHome } from "./routes/products.html.router.js";
 
 const app = express();
 const port = 8080;
@@ -40,7 +39,6 @@ app.use("/api/users", usersRouter);
 app.use("/chat", chat);
 app.use("/products-home", productsHome);
 app.use("/edit-products", editProducts);
-app.use("/html/products", productsHtmlHome);
 
 app.use(express.static((__dirname, "public")));
 app.engine("handlebars", handlebars.engine());
